@@ -1,3 +1,4 @@
+require_relative("concert")
 class Band
     attr_accessor :name
     attr_reader :hometown
@@ -11,5 +12,17 @@ class Band
 
     def self.all
         @@all
+    end
+
+    def concerts
+        Concert.all.select{|concert| concert.band == self}
+    end
+
+    def play_in_venue(venue, date)
+        Concert.new(date, self, venue)
+    end
+
+    def all_introductions
+        concerts.map{|concert| concert.introduction}
     end
 end
